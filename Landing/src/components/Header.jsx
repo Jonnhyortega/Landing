@@ -1,26 +1,29 @@
-import styled from "styled-components";
-import logo from "../imgs/logo-goa-mma.png";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import logo from '../imgs/logo-goa-mma.png';
+
 const HeaderContainer = styled.header`
   background-color: black;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   color: white;
+  position: fixed;
+  top: -50px;
+  left: 0;
+  transition: top 0.3s;
+  z-index: 1000;
 `;
+
 const NavbarContainer = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;
+
 const DivLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5em;
-  border-bottom: 1px solid white;
-  position: fixed;
+  background-color: black;
 `;
-const DivRight = styled.div``;
 
 const NavLink = styled.a`
   color: white;
@@ -28,35 +31,54 @@ const NavLink = styled.a`
   font-size: 1em;
   border-radius: 8px;
   border: 1px solid transparent;
-  font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
   padding: 1em;
   &:hover {
+    border-color: white;
   }
 `;
 
-const LogoGoaNav = styled.img`
-  margin-left: 100px;
-  width: 70px;
-  border-radius: 10px;
+const DivRight = styled.div`
+  display: flex;
+  justify-content: end;
+  padding: 0 1em 0 0;
 `;
 
-const Header = () => (
-  <HeaderContainer>
-    <NavbarContainer>
-      <DivLeft>
-        <NavLink href="#home">Empezar a entrenar</NavLink>
-        <NavLink href="#about">Acerca de</NavLink>
-        <NavLink href="#services">Servicios</NavLink>
-        <NavLink href="#contact">Contacto</NavLink>
-        <LogoGoaNav src={logo}></LogoGoaNav>
-      </DivLeft>
-      <DivRight></DivRight>
-    </NavbarContainer>
-  </HeaderContainer>
-);
+const LogoGoaNav = styled.img`
+  width: 70px;
+`;
+
+const Header = () => {
+  const [showNavbar, setShowNavbar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowNavbar(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <HeaderContainer style={{ top: showNavbar ? '0' : '-50px' }}>
+      <NavbarContainer>
+        <DivLeft>
+          <NavLink href="#home">Empezar a entrenar</NavLink>
+          <NavLink href="#about">Acerca de</NavLink>
+          <NavLink href="#services">Servicios</NavLink>
+          <NavLink href="#contact">Contacto</NavLink>
+        </DivLeft>
+        <DivRight>
+          <LogoGoaNav src={logo} />
+        </DivRight>
+      </NavbarContainer>
+    </HeaderContainer>
+  );
+};
 
 export default Header;
