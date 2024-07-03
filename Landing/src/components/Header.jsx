@@ -51,31 +51,29 @@ const LogoGoaNav = styled.img`
 `;
 
 const Header = () => {
-  const [showNavbar, setShowNavbar] = useState(false);
+  // const [showNavbar, setShowNavbar] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowNavbar(window.scrollY > 0);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setShowNavbar(window.scrollY > 0);
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return (
-    <HeaderContainer style={{ top: showNavbar ? '0' : '-50px' }}>
+    <HeaderContainer>
       <NavbarContainer>
-        <DivLeft>
-          <NavLink href="#home">Empezar a entrenar</NavLink>
-          <NavLink href="#about">Acerca de</NavLink>
-          <NavLink href="#services">Servicios</NavLink>
-          <NavLink href="#contact">Contacto</NavLink>
-        </DivLeft>
-        <DivRight>
           <LogoGoaNav src={logo} />
-        </DivRight>
+        <DivLeft>
+          <NavLink to="/">Empezar a entrenar</NavLink>
+          {/* <NavLink href="#about">Acerca de</NavLink> */}
+          <NavLink to="#servicios">Servicios</NavLink>
+          <NavLink to="#contacto">Contacto</NavLink>
+        </DivLeft>
       </NavbarContainer>
     </HeaderContainer>
   );

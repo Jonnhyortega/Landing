@@ -3,7 +3,11 @@
   margin: 0 auto;
   text-align: center;
   top: 0;
-  /* background-color: black; */
+  background-color: black;
+}
+
+body {
+  background-color: black;
 }
 
 .logo {
