@@ -1,13 +1,12 @@
 import React from "react";
 import {BrowserRouter,Routes,Route} from "react-router-dom";
-import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import Layout from "./components/Layout";
 import NoPage from "./pages/NoPage";
 import "./styles/App.css";
 import ServiciosCarrusel from "./pages/ServiciosCarrusel";
-import { Contacto } from "./pages/Contacto";
+import { Dojos } from "./pages/Dojos";
 
 function App() {
   return (
@@ -16,7 +15,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Hero />} />
           <Route path="servicios" element={<ServiciosCarrusel />} />
-          <Route path="contacto" element={<Contacto />} />
+          <Route path="dojos" element={<Dojos />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

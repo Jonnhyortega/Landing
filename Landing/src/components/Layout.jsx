@@ -56,7 +56,7 @@ export const Layout = () => {
           <LogoGoaNav src={logo} />
           <Linkk to="/">Inscribirse</Linkk>
           <Linkk to="servicios">Servicios</Linkk>
-          <Linkk to="contacto">Contacto</Linkk>
+          <Linkk to="dojos">Dojos</Linkk>
         </NavbarContainer>
       </HeaderContainer>
       <Outlet />

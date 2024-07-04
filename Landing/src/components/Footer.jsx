@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
-  background-color: #333;
+  background-color: black;
   color: white;
   padding: 20px;
   text-align: center;
@@ -12,7 +12,7 @@ const FooterContainer = styled.footer`
 `;
 
 const Content = styled.p`
-font-size: .8em;
+  font-size: 0.8em;
   color: white;
   text-decoration: none;
   margin: 0 10px;

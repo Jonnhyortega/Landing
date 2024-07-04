@@ -1,5 +1,5 @@
 import image2 from "../imgs/foto-treino.jpg";
-import image1 from "../imgs/pexels.jpg";
+import image1 from "../imgs/foto-treino4.jpg";
 import image3 from "../imgs/foto-treino3.jpg";
 
 export const servicios = [
@@ -60,7 +60,85 @@ export const servicios = [
   {
     id: 3,
     name: "Clases para instituciones",
-    description: "Descripción del servicio 3",
+    description: `
+    Ofrecemos clases de Artes Marciales especialmente 
+    diseñadas para niños. Estas clases no solo son divertidas,
+     sino que también ofrecen una serie de beneficios significativos 
+     para sus hijos: Disciplina: Las artes marciales fomentan 
+     la disciplina y el autocontrol, enseñando a los niños a seguir 
+     instrucciones y a ser responsables de sus acciones. Confianza: 
+     A medida que los niños adquieren habilidades y superan desafíos, 
+     su confianza en sí mismos crece. Respeto: Aprenden a respetar 
+     a sus compañeros y a tratar a los demás con cortesía y 
+     consideración. Condición Física: Las clases de artes marciales 
+     mejoran la fuerza, la coordinación y la resistencia de sus hijos. 
+     Autodefensa: Adquieren habilidades que pueden ser valiosas para 
+     protegerse en situaciones potencialmente peligrosas. Enfoque: Las 
+     artes marciales ayudan a mejorar la concentración y la atención de
+      los niños. Trabajo en Equipo: Participar en clases grupales 
+      fomenta habilidades sociales y el trabajo en equipo. Nuestras 
+      clases están diseñadas específicamente para niños y son 
+      impartidas por instructores experimentados que se preocupan 
+      por su desarrollo integral. Si desean brindar a sus hijos una 
+      experiencia educativa y divertida que promueva valores esenciales,
+       ¡no duden en ponerse en contacto con nosotros!
+    `,
     image: image3,
   },
+  {
+    id: 4,
+    name: "Clases mixtas de MMA",
+    description: `
+    Ofrecemos clases de Artes Marciales especialmente 
+    diseñadas para niños. Estas clases no solo son divertidas,
+     sino que también ofrecen una serie de beneficios significativos 
+     para sus hijos: Disciplina: Las artes marciales fomentan 
+     la disciplina y el autocontrol, enseñando a los niños a seguir 
+     instrucciones y a ser responsables de sus acciones. Confianza: 
+     A medida que los niños adquieren habilidades y superan desafíos, 
+     su confianza en sí mismos crece. Respeto: Aprenden a respetar 
+     a sus compañeros y a tratar a los demás con cortesía y 
+     consideración. Condición Física: Las clases de artes marciales 
+     mejoran la fuerza, la coordinación y la resistencia de sus hijos. 
+     Autodefensa: Adquieren habilidades que pueden ser valiosas para 
+     protegerse en situaciones potencialmente peligrosas. Enfoque: Las 
+     artes marciales ayudan a mejorar la concentración y la atención de
+      los niños. Trabajo en Equipo: Participar en clases grupales 
+      fomenta habilidades sociales y el trabajo en equipo. Nuestras 
+      clases están diseñadas específicamente para niños y son 
+      impartidas por instructores experimentados que se preocupan 
+      por su desarrollo integral. Si desean brindar a sus hijos una 
+      experiencia educativa y divertida que promueva valores esenciales,
+       ¡no duden en ponerse en contacto con nosotros!
+    `,
+    image: image1,
+  },
+  {
+    id: 5,
+    name: "Clases para mujeres de MMA",
+    description: `
+    Ofrecemos clases de Artes Marciales especialmente 
+    diseñadas para niños. Estas clases no solo son divertidas,
+     sino que también ofrecen una serie de beneficios significativos 
+     para sus hijos: Disciplina: Las artes marciales fomentan 
+     la disciplina y el autocontrol, enseñando a los niños a seguir 
+     instrucciones y a ser responsables de sus acciones. Confianza: 
+     A medida que los niños adquieren habilidades y superan desafíos, 
+     su confianza en sí mismos crece. Respeto: Aprenden a respetar 
+     a sus compañeros y a tratar a los demás con cortesía y 
+     consideración. Condición Física: Las clases de artes marciales 
+     mejoran la fuerza, la coordinación y la resistencia de sus hijos. 
+     Autodefensa: Adquieren habilidades que pueden ser valiosas para 
+     protegerse en situaciones potencialmente peligrosas. Enfoque: Las 
+     artes marciales ayudan a mejorar la concentración y la atención de
+      los niños. Trabajo en Equipo: Participar en clases grupales 
+      fomenta habilidades sociales y el trabajo en equipo. Nuestras 
+      clases están diseñadas específicamente para niños y son 
+      impartidas por instructores experimentados que se preocupan 
+      por su desarrollo integral. Si desean brindar a sus hijos una 
+      experiencia educativa y divertida que promueva valores esenciales,
+       ¡no duden en ponerse en contacto con nosotros!
+    `,
+    image: image2,
+  }
 ];

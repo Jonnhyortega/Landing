@@ -1,84 +1,85 @@
-import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 import logo from "../imgs/logo-goa-mma.png";
-import image1 from "/public/FOTO2REMK.png";
-import image2 from "../imgs/foto-treino.jpg";
-import image3 from "../imgs/foto-treino2.jpg";
-import image4 from "../imgs/foto-treino3.jpg";
-import image5 from "../imgs/foto-treino4.jpg";
-import image6 from "../imgs/foto-treino5.jpg";
-const images = [image1, image2, image3, image4, image5, image6];
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
+import backgroundVideo from "../video/GOA.mp4";
 
 const HeroContainer = styled.div`
-  margin-top: 50px;
-  display: flex;
-  height: 100vh;
+  height: 90vh;
+  position: relative;
+  overflow: hidden;
 `;
 
-const BoxLeft = styled.div`
+const BackgroundVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  background-color: black;
-  color: white;
+  width: 30%;
+  margin: auto;
   padding: 20px;
-`;
-
-const BoxRight = styled.div`
-  width: 50%;
-  background-image: url(${(props) => props.$bgImage});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  animation: ${fadeIn} 1s ease-in-out;
-  transition: background-image 1s ease-in-out;
+  border-radius: 10px;
+  z-index: 2;
+  height: 100vh;
+  border: 1px solid gold;
+  text-align: center;
+  gap: ${(props) => (props.gapExpanded ? "150px" : "20px")};
+  transition: gap 0.5s;
 `;
 
 const LogoGoa = styled.img`
   border-radius: 10px;
   width: 150px;
+  margin: 0 auto;
+  border-radius: 50%;
+  margin-top: 100px;
   &:hover {
     cursor: pointer;
   }
 `;
 
 const HeroButton = styled.a`
-  margin-top: 20px;
   padding: 10px 20px;
-  background-color: #333;
+  background-color: black;
   color: white;
   text-decoration: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: 800;
   letter-spacing: 1px;
-
+  transition: 0.3s;
+  z-index: 2;
   &:hover {
     background-color: red;
     color: black;
+    letter-spacing: 5px;
   }
 `;
 
 const Hero = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [gapExpanded, setGapExpanded] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
+    const video = videoRef.current;
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= video.duration - 20) {
+        setGapExpanded(true);
+      } else {
+        setGapExpanded(false);
+      }
+    };
 
-    return () => clearInterval(interval);
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => {
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+    };
   }, []);
 
   const handleRedirect = () => {
@@ -87,12 +88,14 @@ const Hero = () => {
 
   return (
     <HeroContainer>
-      <BoxLeft>
+      <BackgroundVideo ref={videoRef} autoPlay loop muted>
+        <source src={backgroundVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </BackgroundVideo>
+      <ContentContainer gapExpanded={gapExpanded}>
         <LogoGoa src={logo} alt="Logo GOA MMA" onClick={handleRedirect} />
-        <p>Academia de artes marciales mixtas</p>
         <HeroButton onClick={handleRedirect}>Inscribirse</HeroButton>
-      </BoxLeft>
-      <BoxRight $bgImage={images[currentImageIndex]} />
+      </ContentContainer>
     </HeroContainer>
   );
 };

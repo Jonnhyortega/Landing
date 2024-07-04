@@ -13,10 +13,9 @@ const CarruselContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   position: relative;
+  padding: 0 0 4em 0;
 `;
 
 const BackgroundImage = styled.div`
@@ -34,59 +33,70 @@ const BackgroundImage = styled.div`
 
 const TitleContainer = styled.div`
   position: absolute;
-  top: 20px;
+  top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  z-index: 2;
+  width: 100%;
+  
 `;
 
 const Title = styled.h2`
   margin: 0 10px;
   font-size: 2em;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 0 1em;
+  border-radius: 10px;
+    box-shadow: 2px 2px 5px 1px rgba(55, 2, 2, 0.483);
+
 `;
 
 const Arrow = styled.div`
   font-size: 3em;
-  color: black;
   padding: 5px;
   border-radius: 50%;
   cursor: pointer;
   margin: 0 5px;
-  color: red;
+  color: white;
 
   &:hover {
-    color: white;
-    filter: drop-shadow(1px 1px 1px white);
+    color: rgba(255, 2, 2, 0.483);
+    filter: drop-shadow(10px 10px 10px white);
   }
 `;
 
 const ServicioContainer = styled.div`
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60%;
+  width: 80%;
+  max-width: 600px; /* Ancho máximo para contenido */
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
   padding: 1em;
-  border: 1px solid red;
+  box-shadow: 2px 2px 5px 1px rgba(55, 2, 2, 0.483);
   border-radius: 10px;
-  margin-top: 1.5em;
+  margin-top: 7em;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-top: 5em;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 8em;
+  }
 `;
 
 const IndicatorsContainer = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 `;
 
 const Indicator = styled.div`
@@ -94,7 +104,7 @@ const Indicator = styled.div`
   height: 5px;
   background-color: ${(props) => (props.active ? "black" : "grey")};
   transition: background-color 0.3s ease;
-  margin: 0 2px; /* Espacio entre indicadores */
+  margin: 0 4px;
 `;
 
 const ServiciosCarrusel = () => {
