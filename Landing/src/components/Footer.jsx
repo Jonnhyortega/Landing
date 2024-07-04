@@ -1,6 +1,6 @@
 // src/components/Footer.jsx
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const FooterContainer = styled.footer`
   background-color: #333;
@@ -8,6 +8,7 @@ const FooterContainer = styled.footer`
   padding: 20px;
   text-align: center;
   width: 100%;
+  bottom: 0;
 `;
 
 const FooterLink = styled.a`
