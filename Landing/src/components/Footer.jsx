@@ -11,26 +11,20 @@ const FooterContainer = styled.footer`
   bottom: 0;
 `;
 
-const FooterLink = styled.a`
+const Content = styled.p`
+font-size: .8em;
   color: white;
   text-decoration: none;
   margin: 0 10px;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const Footer = () => {
   return (
     <FooterContainer>
-      <p>&copy; 2024 GOA MMA. Todos los derechos reservados.</p>
-      <div>
-        {/* <FooterLink href="#home">Inicio</FooterLink>
-        <FooterLink href="#about">Acerca de</FooterLink>
-        <FooterLink href="#services">Servicios</FooterLink>
-        <FooterLink href="#contact">Contacto</FooterLink> */}
-      </div>
+      <Content>
+        &copy; 2024 - Academia de artes marciales mixtas GOA. Todos los derechos
+        reservados.
+      </Content>
     </FooterContainer>
   );
 };

@@ -2,26 +2,23 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ServicioCard = styled.div`
+  text-align: left;
+  top: 0;
+  border-radius: 10px;
+  z-index: 2;
+  width: auto;
+`;
 
-display:flex;
-flex-direction: column;
-gap: 15px;
-border:1px solid black;
-padding: 1em;
-`
-const ServicioTitle = styled.span`
-color: black;
-font-size: 1.5em;
-`
-const ServicioDescription = styled.span `
-color: white;
-text-align: left;
-`
+const ServicioDescription = styled.span`
+  color: white;
+  font-size: 1em;
+  font-weight: 800;
+  text-align: left;
+`;
 
-function Servicio({ name, description}) {
+function Servicio({ description }) {
   return (
     <ServicioCard>
-      <ServicioTitle>{name}</ServicioTitle>
       <ServicioDescription>{description}</ServicioDescription>
     </ServicioCard>
   );

@@ -7,12 +7,7 @@ const HeaderContainer = styled.header`
   background-color: black;
   width: 100%;
   color: white;
-  position: fixed;
   padding: 0 0 0 2em;
-  top: 100px;
-  left: 0;
-  transition: top 0.3s;
-  z-index: 1000;
 `;
 
 const NavbarContainer = styled.nav`
@@ -29,36 +24,37 @@ const Linkk = styled(Link)`
   font-weight: 500;
   color: grey;
   text-decoration: inherit;
-  padding: 0 0 1rem 0;
   border-bottom: 2px solid grey;
-
+  transition: .2s;
   &:hover {
     color: white;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid red;
+    padding: 0 0 .2rem 0;
+    filter: drop-shadow(1px 1px 1px red)
+
   }
 `;
 
 export const Layout = () => {
-  const [showNavbar, setShowNavbar] = useState(false);
+  // const [showNavbar, setShowNavbar] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowNavbar(window.scrollY > 0);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setShowNavbar(window.scrollY > 0);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
+  // style={{ top: showNavbar ? "-50px" : "0" }}
   return (
     <>
-      <HeaderContainer style={{ top: showNavbar ? "-50px" : "0" }}>
+      <HeaderContainer >
         <NavbarContainer>
           <LogoGoaNav src={logo} />
           <Linkk to="/">Inscribirse</Linkk>
-          {/* <StyledLink href="#about">Acerca de</StyledLink> */}
           <Linkk to="servicios">Servicios</Linkk>
           <Linkk to="contacto">Contacto</Linkk>
         </NavbarContainer>

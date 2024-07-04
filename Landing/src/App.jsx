@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import Layout from "./components/Layout";
 import NoPage from "./pages/NoPage";
 import "./styles/App.css";
-import Servicios from "./pages/Servicios";
+import ServiciosCarrusel from "./pages/ServiciosCarrusel";
 import { Contacto } from "./pages/Contacto";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Hero />} />
-          <Route path="servicios" element={<Servicios />} />
+          <Route path="servicios" element={<ServiciosCarrusel />} />
           <Route path="contacto" element={<Contacto />} />
           <Route path="*" element={<NoPage />} />
         </Route>
