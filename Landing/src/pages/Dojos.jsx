@@ -3,8 +3,10 @@ import styled, { keyframes } from "styled-components";
 import video1 from "../video/GOA-DOJOS1.mp4";
 import video2 from "../video/GOA-DOJOS2.mp4";
 import video3 from "../video/GOA-DOJOS3.mp4";
-import { dojos } from "../utils/dojos"; // Importa el array de dojos
+import { dojos } from "../utils/dojos";
 import logo from "../imgs/logo-goa-mma.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const DojoContainer = styled.div`
   display: flex;
@@ -50,6 +52,35 @@ const fadeIn = keyframes`
   }
 `;
 
+const borderAnimation = keyframes`
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  25% {
+    clip-path: inset(0 0 100% 0);
+  }
+  50% {
+    clip-path: inset(0 0 0 100%);
+  }
+  75% {
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 100% 0 0);
+  }
+`;
+
+const fadeInLetters = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const AdditionalContainer = styled.div`
   position: absolute;
   top: 45%;
@@ -62,23 +93,36 @@ const AdditionalContainer = styled.div`
   display: ${(props) => (props.show ? "grid" : "none")};
   grid-template-columns: 1fr 1fr;
   gap: 2em;
-  animation: ${fadeIn} 1s ease-in-out;
+  animation: ${fadeIn} 1.4s ease-in-out;
   @media (max-width: 768px) {
     width: 80%;
     margin: 5em 0 15em 0;
     grid-template-columns: 1fr;
   }
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid red;
+    border-radius: 10px;
+    animation: ${borderAnimation} 1.5s linear forwards;
+  }
 `;
+
 const CardDojo = styled.div`
   border-radius: 10px;
   padding: 1em;
   display: flex;
   flex-direction: column;
   @media (max-width: 768px) {
-    padding:0;
+    padding: 0;
   }
 `;
+
 const NameDojo = styled.h3`
   font-size: 2em;
   color: white;
@@ -86,6 +130,7 @@ const NameDojo = styled.h3`
   display: flex;
   align-items: center;
   gap: 1em;
+  animation: ${fadeInLetters} 1.3s ease forwards;
 `;
 
 const LogoImg = styled.img`
@@ -132,8 +177,9 @@ export const Dojos = () => {
           <CardDojo key={dojo.id}>
             <NameDojo>
               <LogoImg src={logo}></LogoImg> {dojo.name}
+              <FontAwesomeIcon icon={faLocationDot} style={{ color: 'red', filter: 'drop-shadow(2px 2px 10px grey)' }} />
             </NameDojo>
-            <InfoDojo>Dirección: {dojo.address}</InfoDojo>
+            <InfoDojo>Dirección: {dojo.address} </InfoDojo>
             <InfoDojo>Horarios: {dojo.schedules}</InfoDojo>
             <InfoDojo>Teléfono: {dojo.phone}</InfoDojo>
           </CardDojo>

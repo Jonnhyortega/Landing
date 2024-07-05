@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled, { keyframes } from "styled-components"; // Asegúrate de importar styled-components
 import { servicios } from "../utils/servicios";
 import Servicio from "./Servicio";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,16 +8,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const CarruselContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  position: relative;
-  padding: 0 0 4em 0;
-`;
-
+// Importa BackgroundImage desde styled-components
 const BackgroundImage = styled.div`
   position: absolute;
   top: 0;
@@ -31,84 +22,126 @@ const BackgroundImage = styled.div`
   opacity: ${(props) => (props.visible ? 1 : 0)};
 `;
 
+const CarruselContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+`;
+
 const TitleContainer = styled.div`
   position: absolute;
-  top: 10px;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  
+  text-align: center;
+  width: 80%;
+  max-width: 800px;
 `;
 
 const Title = styled.h2`
-  margin: 0 10px;
-  font-size: 2em;
+  margin: 0;
+  font-size: 2.5em;
   color: white;
   background-color: rgba(0, 0, 0, 0.9);
-  padding: 0 1em;
+  padding: 0.5em 1em;
   border-radius: 10px;
-    box-shadow: 2px 2px 5px 1px rgba(55, 2, 2, 0.483);
-
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 `;
 
 const Arrow = styled.div`
   font-size: 3em;
-  padding: 5px;
+  padding: 10px;
   border-radius: 50%;
   cursor: pointer;
-  margin: 0 5px;
+  margin: 0 15px;
   color: white;
+  transition: color 0.3s ease;
 
   &:hover {
-    color: rgba(255, 2, 2, 0.483);
-    filter: drop-shadow(10px 10px 10px white);
+    color: rgba(255, 0, 0, 0.7);
+    transform: scale(1.1);
   }
 `;
 
 const ServicioContainer = styled.div`
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 80%;
-  max-width: 600px; /* Ancho máximo para contenido */
-  z-index: 2;
+  max-width: 1200px;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.9);
-  padding: 1em;
-  box-shadow: 2px 2px 5px 1px rgba(55, 2, 2, 0.483);
-  border-radius: 10px;
-  margin-top: 7em;
+  padding: 1.5em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  margin-top: 5em;
 
   @media (max-width: 768px) {
-    width: 90%;
-    margin-top: 5em;
+    flex-direction: column;
   }
+`;
+
+const ServicioInfo = styled.div`
+  flex: 1;
+  padding: 1em;
+  color: white;
+  text-align: justify;
+`;
+
+const ServicioImage = styled.div`
+  flex: 1;
+  height: 500PX;
+  background-image: ${(props) => `url(${props.imageUrl})`};
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  margin-left: 2em;
 
   @media (max-width: 768px) {
-    margin-top: 8em;
+    margin-left: 0;
+    margin-top: 2em;
+    width: 100%;
+    height: 200px;
   }
 `;
 
 const IndicatorsContainer = styled.div`
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  z-index: 3;
+  z-index: 2;
 `;
 
 const Indicator = styled.div`
   width: 10px;
   height: 5px;
-  background-color: ${(props) => (props.active ? "black" : "grey")};
+  background-color: ${(props) =>
+    props.active ? "rgba(255, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.5)"};
   transition: background-color 0.3s ease;
-  margin: 0 4px;
+  margin: 0 8px;
 `;
 
 const ServiciosCarrusel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % servicios.length);
+    }, 5000); 
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % servicios.length);
@@ -122,14 +155,6 @@ const ServiciosCarrusel = () => {
 
   return (
     <CarruselContainer>
-      {servicios.map((servicio, index) => (
-        <BackgroundImage
-          key={servicio.id}
-          imageUrl={servicio.image}
-          visible={index === currentIndex}
-        />
-      ))}
-
       <TitleContainer>
         <Arrow onClick={handlePrev}>
           <FontAwesomeIcon icon={faChevronLeft} />
@@ -141,10 +166,13 @@ const ServiciosCarrusel = () => {
       </TitleContainer>
 
       <ServicioContainer>
-        <Servicio
-          key={servicios[currentIndex].id}
-          description={servicios[currentIndex].description}
-        />
+        <ServicioInfo>
+          <Servicio
+            key={servicios[currentIndex].id}
+            description={servicios[currentIndex].description}
+          />
+        </ServicioInfo>
+        <ServicioImage imageUrl={servicios[currentIndex].image} />
       </ServicioContainer>
 
       <IndicatorsContainer>

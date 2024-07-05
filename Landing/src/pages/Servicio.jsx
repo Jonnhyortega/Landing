@@ -15,14 +15,13 @@ const ServicioCard = styled.div`
   margin: 0 auto;
   border-radius: 10px;
   z-index: 2;
-  width: auto;
 `;
 
 const ServicioDescription = styled.span`
   color: white;
   font-size: 1em;
   font-weight: 800;
-  text-align: center;
+  text-align: justify;
   animation: ${fadeIn} 0.5s ease-in-out;
 `;
 

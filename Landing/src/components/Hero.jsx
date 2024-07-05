@@ -21,15 +21,14 @@ const BackgroundVideo = styled.video`
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30%;
   margin: auto;
   padding: 20px;
   border-radius: 10px;
   z-index: 2;
   height: 100vh;
-  border: 1px solid gold;
+  width: 90%;
   text-align: center;
-  gap: ${(props) => (props.gapExpanded ? "150px" : "20px")};
+  gap: ${(props) => (props.gapExpanded ? "200px" : "20px")};
   transition: gap 0.5s;
 `;
 
@@ -39,6 +38,7 @@ const LogoGoa = styled.img`
   margin: 0 auto;
   border-radius: 50%;
   margin-top: 100px;
+  z-index: 4;
   &:hover {
     cursor: pointer;
   }
@@ -69,7 +69,7 @@ const Hero = () => {
   useEffect(() => {
     const video = videoRef.current;
     const handleTimeUpdate = () => {
-      if (video.currentTime >= video.duration - 20) {
+      if (video.currentTime >= video.duration - 32) {
         setGapExpanded(true);
       } else {
         setGapExpanded(false);
@@ -93,7 +93,7 @@ const Hero = () => {
         Your browser does not support the video tag.
       </BackgroundVideo>
       <ContentContainer gapExpanded={gapExpanded}>
-        <LogoGoa src={logo} alt="Logo GOA MMA" onClick={handleRedirect} />
+        <LogoGoa src={logo} alt="Logo GOA MMA"/>
         <HeroButton onClick={handleRedirect}>Inscribirse</HeroButton>
       </ContentContainer>
     </HeroContainer>
