@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import logo from "../imgs/logo-goa-mma.png";
 import backgroundVideo from "../video/GOA.mp4";
 
@@ -23,25 +23,25 @@ const BackgroundVideo = styled.video`
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1000px;
+  gap: 50px;
   height: 100vh;
   margin: auto;
   border-radius: 10px;
   z-index: 2;
   width: 160px;
   text-align: center;
-  gap: ${(props) => (props.gapExpanded ? "200px" : "20px")};
-  transition: gap 0.5s;
   opacity: ${(props) => (props.visible ? 1 : 0)};
-  transition: opacity 0.5s;
+  transition: opacity 0.5s, gap 0.5s;
+
+ @media (max-width: 568px) {
+   gap: 200px
+  }
 `;
 
 const LogoGoa = styled.img`
-  border-radius: 10px;
   width: 150px;
-  margin: 0 0 200px 0;
-  border-radius: 50%;
   margin-top: 100px;
+  border-radius: 50%;
   z-index: 4;
   &:hover {
     cursor: pointer;
@@ -59,38 +59,24 @@ const HeroButton = styled.a`
   letter-spacing: 1px;
   transition: 0.3s;
   z-index: 2;
+  opacity: ${(props) => (props.visible ? 1 : 0)};
   &:hover {
-    background-color: red;
-    color: black;
+    color: white;
     letter-spacing: 2px;
-    transform: scale(1.05); /* Aumento de escala al pasar el mouse */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra al pasar el mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
   }
 `;
 
 const Hero = () => {
-  const [gapExpanded, setGapExpanded] = useState(false);
   const [visible, setVisible] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
-    const video = videoRef.current;
     const timer = setTimeout(() => {
       setVisible(true);
     }, 3000);
 
-    const handleTimeUpdate = () => {
-      if (video.currentTime >= video.duration - 32) {
-        setGapExpanded(true);
-      } else {
-        setGapExpanded(false);
-      }
-    };
-
-    video.addEventListener("timeupdate", handleTimeUpdate);
-
     return () => {
-      video.removeEventListener("timeupdate", handleTimeUpdate);
       clearTimeout(timer);
     };
   }, []);
@@ -105,9 +91,11 @@ const Hero = () => {
         <source src={backgroundVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </BackgroundVideo>
-      <ContentContainer gapExpanded={gapExpanded} visible={visible}>
+      <ContentContainer visible={visible}>
         <LogoGoa src={logo} alt="Logo GOA MMA" />
-        <HeroButton onClick={handleRedirect}>Inscribirse</HeroButton>
+        <HeroButton visible={visible} onClick={handleRedirect}>
+          Inscribirse
+        </HeroButton>
       </ContentContainer>
     </HeroContainer>
   );

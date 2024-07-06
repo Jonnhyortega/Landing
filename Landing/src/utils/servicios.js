@@ -27,7 +27,7 @@ export const servicios = [
   },
   {
     id: 4,
-    name: "Clases mixtas de MMA",
+    name: "Clases mixtas",
     description: `
     Clases de mma para todas las edades y generos
         `,

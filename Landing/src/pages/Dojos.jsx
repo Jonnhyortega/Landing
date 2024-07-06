@@ -28,6 +28,11 @@ const VideoMosaic = styled.div`
   grid-template-rows: 1fr;
   z-index: 0;
   opacity: 0.7;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+  }
 `;
 
 const Video = styled.video`
@@ -94,8 +99,9 @@ const AdditionalContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 2em;
   animation: ${fadeIn} 1.4s ease-in-out;
+
   @media (max-width: 768px) {
-    width: 80%;
+    width: 90%;
     margin: 5em 0 15em 0;
     grid-template-columns: 1fr;
   }
@@ -118,8 +124,10 @@ const CardDojo = styled.div`
   padding: 1em;
   display: flex;
   flex-direction: column;
+
   @media (max-width: 768px) {
-    padding: 0;
+    padding: 0.5em;
+    text-align: justify;
   }
 `;
 
@@ -131,6 +139,11 @@ const NameDojo = styled.h3`
   align-items: center;
   gap: 1em;
   animation: ${fadeInLetters} 1.3s ease forwards;
+
+  @media (max-width: 768px) {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
 `;
 
 const LogoImg = styled.img`
@@ -138,11 +151,20 @@ const LogoImg = styled.img`
   border-radius: 50px;
   margin: 0 0 0 1em;
   border: 1px solid white;
+
+  @media (max-width: 768px) {
+    width: 40px;
+    margin: 0 0 0 0.5em;
+  }
 `;
 
 const InfoDojo = styled.p`
   color: white;
   text-align: left;
+
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+  }
 `;
 
 export const Dojos = () => {
@@ -176,8 +198,12 @@ export const Dojos = () => {
         {dojos.map((dojo) => (
           <CardDojo key={dojo.id}>
             <NameDojo>
-              <LogoImg src={logo}></LogoImg> {dojo.name}
-              <FontAwesomeIcon icon={faLocationDot} style={{ color: 'red', filter: 'drop-shadow(2px 2px 10px grey)' }} />
+              <LogoImg src={logo} alt="Logo GOA MMA" />
+              {dojo.name}
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                style={{ color: "red", filter: "drop-shadow(2px 2px 10px grey)" }}
+              />
             </NameDojo>
             <InfoDojo>Dirección: {dojo.address} </InfoDojo>
             <InfoDojo>Horarios: {dojo.schedules}</InfoDojo>
