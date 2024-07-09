@@ -12,9 +12,13 @@ const DojoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 600px;
   overflow: hidden;
   position: relative;
+  @media (max-width: 768px) {
+    height: 1000px;
+    grid-template-columns: 1fr;
+  }
 `;
 
 const VideoMosaic = styled.div`
@@ -32,6 +36,8 @@ const VideoMosaic = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 1fr);
+    top: -100px;
+    left: 0;
   }
 `;
 
@@ -39,13 +45,6 @@ const Video = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
-`;
-
-const Content = styled.div`
-  position: relative;
-  z-index: 1;
-  color: white;
-  font-size: 3em;
 `;
 
 const fadeIn = keyframes`
@@ -102,7 +101,6 @@ const AdditionalContainer = styled.div`
 
   @media (max-width: 768px) {
     width: 90%;
-    margin: 5em 0 15em 0;
     grid-template-columns: 1fr;
   }
 
@@ -139,18 +137,17 @@ const NameDojo = styled.h3`
   align-items: center;
   gap: 1em;
   animation: ${fadeInLetters} 1.3s ease forwards;
-
   @media (max-width: 768px) {
     font-size: 1.5em;
     margin-bottom: 20px;
   }
 `;
 
-const LogoImg = styled.img`
+export const LogoImg = styled.img`
   width: 50px;
   border-radius: 50px;
-  margin: 0 0 0 1em;
-  border: 1px solid white;
+  border: 1px solid grey;
+  filter: drop-shadow(1px 1px 2px grey);
 
   @media (max-width: 768px) {
     width: 40px;
@@ -161,7 +158,7 @@ const LogoImg = styled.img`
 const InfoDojo = styled.p`
   color: white;
   text-align: left;
-
+  font-weight: 700;
   @media (max-width: 768px) {
     font-size: 0.9em;
   }
@@ -202,7 +199,8 @@ export const Dojos = () => {
               {dojo.name}
               <FontAwesomeIcon
                 icon={faLocationDot}
-                style={{ color: "red", filter: "drop-shadow(2px 2px 10px grey)" }}
+                style={{
+                  color: "red"                }}
               />
             </NameDojo>
             <InfoDojo>Dirección: {dojo.address} </InfoDojo>

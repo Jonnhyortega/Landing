@@ -1,80 +1,112 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faCircleRight, faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { servicios } from "../utils/servicios";
-
-import video2 from "../video/GOA-DOJOS2.mp4";
-import video1 from "../video/KIDS.mp4";
-import video3 from "../video/ASD.mp4";
+import { Link } from "react-router-dom";
 
 const CarruselContainer = styled.div`
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  height: 100vh;
 `;
 
 const ServicioContainer = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 80%;
-  height: 80vh;
-`;
-
-const VideoBackground = styled.video`
-  position: absolute;
-  top: 40px;
-  left: 0;
   width: 100%;
-  height: 100%;
-  object-fit: center;
+  height: 1000px;
 `;
 
 const fadeIn = keyframes`
   from {
     opacity: 0;
-    transform: translateY(100px);
   }
   to {
     opacity: 1;
-    transform: translateY(1000px);
   }
 `;
 
-const ServicioInfo = styled.div`
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+const ImageBackground = styled.div`
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1em;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  animation: ${(props) => (props.visible ? fadeIn : fadeOut)} 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+`;
+
+const ServicioInfo = styled.div`
+  border-radius: 1em;
+  margin-top: 1em;
   color: white;
-  text-align: center;
-  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  background-color: red;
+  border: 1px solid white;
+  width: 50%;
+  height: 80%;
   opacity: ${(props) => (props.visible ? 1 : 0)};
   transition: opacity 0.5s;
   z-index: 2;
   animation: ${(props) => (props.visible ? fadeIn : "none")} 0.5s ease-out;
+  backdrop-filter: blur(1px) saturate(200%);
+  -webkit-backdrop-filter: blur(12px) saturate(200%);
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+`;
+
+const Logo = styled.img`
+  margin-top: 1em;
+  width: 200px;
+  z-index: 2;
+  border-radius: 50%;
 `;
 
 const Title = styled.h2`
+  margin: 0 auto;
+  width: 90%;
+  text-align: center;
   font-size: 3em;
   color: white;
+  font-weight: bold;
+  color: transparent;
+  background: linear-gradient(to right, white, black);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(1px 2px 5px white);
+  text-shadow: 1px 1px 1px black;
+`;
+
+const VerMas = styled.a`
+  place-content: center;
+  color: gold;
+  text-align: center;
 `;
 
 const ArrowContainer = styled.div`
   margin: 0 auto;
-  width: 40%;
+  width: 150px;
   display: flex;
   justify-content: space-between;
   z-index: 2;
 `;
 
 const Arrow = styled.div`
-  font-size: 1.5em;
+  font-size: 2.1em;
   cursor: pointer;
   color: white;
   transition: color 0.3s ease;
@@ -104,22 +136,35 @@ const Indicator = styled.div`
   margin: 0 8px;
 `;
 
-const videos = [video1, video2, video3];
-
 const ServiciosCarrusel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showTitle, setShowTitle] = useState(false);
+  const [imageVisible, setImageVisible] = useState(true);
   const videoRef = useRef(null);
 
   useEffect(() => {
     setShowTitle(true);
   }, []);
 
+  useEffect(() => {
+    const imageTimer = setInterval(() => {
+      setImageVisible(false);
+      setTimeout(() => {
+        setCurrentImageIndex(
+          (prevIndex) => (prevIndex + 1) % servicios[currentIndex].image.length
+        );
+        setImageVisible(true);
+      }, 1000);
+    }, 4000);
+    return () => clearInterval(imageTimer);
+  }, [currentIndex]);
+
   const handleNext = () => {
     setShowTitle(false);
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % servicios.length);
-      videoRef.current.src = videos[(currentIndex + 1) % videos.length];
+      setCurrentImageIndex(0);
       setShowTitle(true);
     }, 500);
   };
@@ -130,7 +175,7 @@ const ServiciosCarrusel = () => {
       setCurrentIndex(
         (prevIndex) => (prevIndex - 1 + servicios.length) % servicios.length
       );
-      videoRef.current.src = videos[(currentIndex - 1 + videos.length) % videos.length];
+      setCurrentImageIndex(0);
       setShowTitle(true);
     }, 500);
   };
@@ -138,23 +183,24 @@ const ServiciosCarrusel = () => {
   return (
     <CarruselContainer>
       <ServicioContainer>
-        <VideoBackground ref={videoRef} autoPlay loop muted>
-          <source src={videos[currentIndex]} type="video/mp4" />
-          Your browser does not support the video tag.
-        </VideoBackground>
-
+        <ImageBackground
+          style={{
+            backgroundImage: `url(${servicios[currentIndex].image[currentImageIndex]})`,
+          }}
+          visible={imageVisible}
+        />
         <ServicioInfo visible={showTitle}>
           <Title>{servicios[currentIndex].name}</Title>
+          <VerMas>Ver más</VerMas>
+          <ArrowContainer>
+            <Arrow onClick={handlePrev}>
+              <FontAwesomeIcon icon={faCircleLeft} />
+            </Arrow>
+            <Arrow onClick={handleNext}>
+              <FontAwesomeIcon icon={faCircleRight} />{" "}
+            </Arrow>
+          </ArrowContainer>
         </ServicioInfo>
-
-        <ArrowContainer>
-          <Arrow onClick={handlePrev}>
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </Arrow>
-          <Arrow onClick={handleNext}>
-            <FontAwesomeIcon icon={faChevronRight} />
-          </Arrow>
-        </ArrowContainer>
       </ServicioContainer>
 
       <IndicatorsContainer>
